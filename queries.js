@@ -22,10 +22,22 @@ const getUsers = (req,res) => {
 
 const createUser = (req,res) => {
     const {name,email} = req.body
-    pool.query('INSERT INTO user (name,email) VALUES ($1,$2)',[name,email], (error,results)=>{
+    pool.query('INSERT INTO users (name,email) VALUES ($1,$2)',[name,email], (error,results)=>{
         if(error) {
             throw error
         }
         res.status(201).send(`User added with ID: ${results.insertId}`)
+    })
+}
+
+const updateUser = (req,res) => {
+    const id = parseInt(req.params.id)
+    const {name,email} = req.body
+
+    pool.query("UPDATE users SET name=$1,email=$2 WHERE id = $3",[name,email,id],(error,results)=>{
+        if(error) {
+            throw error
+        }
+        res.status(200).send(`User modified with ID:${id}`)
     })
 }
