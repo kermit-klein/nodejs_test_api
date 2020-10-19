@@ -1,4 +1,4 @@
-import {getUsers,createUser,deleteUser,updateUser} from "./queries"
+import {getUsers,createUser,deleteUser,updateUser,getUserById} from "./queries"
 
 const express = require('express')
 const bodyParser = require('body-parser')
