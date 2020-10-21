@@ -6,7 +6,7 @@ const pool = new Pool(
         user: "allezz",
         host:'localhost',
         database:'nodetest',
-        password:password,
+        password:`${password}`,
         port:5432
     }
 )
@@ -21,6 +21,7 @@ const getUsers = (req,res) => {
 }
 
 const createUser = (req,res) => {
+    console.log(req.body)
     const {name,email} = req.body
     pool.query('INSERT INTO users (name,email) VALUES ($1,$2)',[name,email], (error,results)=>{
         if(error) {
@@ -57,8 +58,12 @@ const getUserById = (req,res) => {
         if(error) {
             throw error
         }
-        res.status(200).json(results.row)
+        console.log(process.env['PASSWORD_POSTGRES'])
+        res.status(200).json(results.rows)
     })
 }
 
-export {getUsers,createUser,deleteUser,updateUser,getUserById}
+
+module.exports = {
+    getUsers,createUser,deleteUser,updateUser,getUserById
+}

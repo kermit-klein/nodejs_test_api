@@ -1,5 +1,5 @@
-import {getUsers,createUser,deleteUser,updateUser,getUserById} from "./queries"
-
+require('dotenv').config({path: __dirname + '/.env'})
+const db = require('./queries')
 const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
@@ -13,11 +13,11 @@ app.get("/",(req,res)=>{
     res.json({info:"Hello from Express"})
 })
 
-app.get('/users', getUsers)
-app.get('/users/:id', getUserById)
-app.post('/users', createUser)
-app.put('/users/:id', updateUser)
-app.delete('/users/:id', deleteUser)
+app.get('/users', db.getUsers)
+app.get('/users/:id', db.getUserById)
+app.post('/users', db.createUser)
+app.put('/users/:id', db.updateUser)
+app.delete('/users/:id', db.deleteUser)
 
 
 app.listen(port,()=>{
